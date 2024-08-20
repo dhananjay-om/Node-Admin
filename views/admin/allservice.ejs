@@ -1,0 +1,103 @@
+<%- include('./partials/header.ejs') %> 
+<%- include('./partials/sidebar.ejs') %> 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<div class="main-panel">
+    <div class="content-wrapper">
+      <div class="row">
+        <div class="col-12 grid-margin">
+          <div class="card">
+            <div class="card-body">
+               
+              <h4 class="card-title">Manage Service</h4>
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th> Title </th>
+                      <th> Description </th>
+                      <th> Created at </th>
+                      <th> Action </th>
+                      <th> <a href="/service"><button type="button" class="btn btn-gradient-primary btn-sm">+ Add New </button> </a> </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% if(service.length > 0){ %>
+                    <% service.forEach(item => { %>
+                    <tr>
+                      <td>
+                        <img src="/images/<%= item.image %>" class="me-2" alt="image"> <%= item.title %>
+                      </td>
+                      <td> <%= item.description %> </td>
+                      <td> <%= new Date(item.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) %> </td>
+                      <td>
+                      <div class="blog_action">
+                        <a href="/service/<%=item._id%>"> <button type="button" class="btn btn-gradient-primary btn-fw">Edit</button></a>
+                        <a href="/sevice-details/<%=item._id%>">
+ 
+                        <button type="button" class="btn btn-gradient-success btn-fw">View</button></a>
+ 
+                        <form id="deleteForm-<%= item._id %>" action="/delete-service/<%=item._id%>" method="post">  
+                          <button type="button" class="btn btn-gradient-danger btn-fw" onclick="confirmDelete('<%= item._id %>')">Delete</button>
+                        </form>
+                         </form>
+                     </div>
+                    </td>
+                    </tr>
+                    <% }); %>
+                    <% } else { %>
+                      <p>No Service Available</p>
+                  <% } %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      
+    </div>
+    <!-- content-wrapper ends -->
+<%- include('./partials/footer.ejs') %> 
+
+<style type="text/css">
+.blog_action {
+  display: flex;
+  gap: 10px;
+}
+.table th img, .table td img {
+    width: 100px;
+    height: 94px;
+    border-radius: 100%;
+}
+.btn.btn-fw {
+    min-width: 101px;
+}
+thead {
+    background-color: rebeccapurple;
+    color: white;
+}
+</style>
+
+<script>
+  
+function confirmDelete(serviceId) {
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // If confirmed, submit the form
+            document.getElementById('deleteForm-' + serviceId).submit();
+           
+        }
+    });
+}
+
+</script>

@@ -1,0 +1,99 @@
+<%- include('./partials/header.ejs') %> 
+<%- include('./partials/sidebar.ejs') %> 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<div class="main-panel">
+    <div class="content-wrapper">
+      <div class="row">
+        
+        <div class="col-12 grid-margin">
+          <div class="card">
+            <div class="card-body">
+             
+              <h4 class="card-title">Manage Project</h4>
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th> Email </th>
+                      <th> Created At</th>
+                      <th> Action </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% if(subscriber.length > 0){ %>
+                    <% subscriber.forEach(item => { %>
+                    <tr>
+                      <td>
+                         <%= item.email %>
+                      </td>
+                     <td> <%= new Date(item.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) %> </td>
+                        <td>
+                            <form id="deleteForm-<%= item._id %>" action="/newslettersubscriber/<%=item._id%>" method="post">  
+                          <button type="button" class="btn btn-gradient-danger btn-fw" onclick="confirmDelete('<%= item._id %>')">Delete</button>
+                        </form>
+                         
+                     </div>
+                    </td>
+                    </tr>
+                    <% }); %>
+                    <% } else { %>
+                      <p>No project Available</p>
+                  <% } %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+           
+          </div>
+        </div>
+      </div>
+      
+      
+    </div>
+    <!-- content-wrapper ends -->
+<%- include('./partials/footer.ejs') %> 
+
+<style type="text/css">
+.blog_action {
+  display: flex;
+  gap: 10px;
+}
+.table th img, .table td img {
+    width: 100px;
+    height: 94px;
+    border-radius: 100%;
+}
+.btn.btn-fw {
+    min-width: 101px;
+}
+.pagination a {
+    padding: 12px;
+}
+thead {
+    background-color: rebeccapurple;
+    color: white;
+}
+</style>
+
+<script>
+  
+function confirmDelete(projectId) {
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // If confirmed, submit the form
+            document.getElementById('deleteForm-' + projectId).submit();
+           
+        }
+    });
+}
+
+</script>

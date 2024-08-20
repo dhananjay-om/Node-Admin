@@ -1,0 +1,131 @@
+<%- include('./partials/header.ejs') %> 
+<%- include('./partials/sidebar.ejs') %> 
+<div class="main-panel">
+    <div class="content-wrapper">
+      <div class="row">
+        <% if (savemode) { %>
+        <div class="col-12 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">Manage Project</h4>
+                <p class="card-description"> Add New Project </p>
+                <form class="forms-sample" action="/project" enctype="multipart/form-data" method="post" >
+                  <% if (isEditing) { %>
+                    <input type="hidden" name="id" value="<%= project._id %>">
+                <% } %>
+                  <div class="form-group">
+                    <label for="exampleInputName1">Name</label>
+                    <input type="text" name="title" value="<%= project.title || '' %>" required class="form-control" id="exampleInputName1" placeholder="Name">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputName1">Rating</label>
+                    <input type="text" name="rating" value="<%= project.rating || '' %>" required class="form-control" id="exampleInputName1" placeholder="Rating">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputName1">Client</label>
+                    <input type="text" name="client" value="<%= project.client || '' %>" required class="form-control" id="exampleInputName1" placeholder="Client">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputName1">Website</label>
+                    <input type="text" name="website" value="<%= project.website || '' %>" required class="form-control" id="exampleInputName1" placeholder="Website">
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="exampleInputName1">Completed</label>
+                    <input type="text" name="completed" value="<%= project.completed || '' %>" required class="form-control" id="exampleInputName1" placeholder="Completed">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputName1">Tag</label>
+                    <input type="text" name="tag" value="<%= project.tag || '' %>" required class="form-control" id="exampleInputName1" placeholder="tag">
+                  </div>
+                  
+                  <div class="form-group">
+                    <label>Image</label>
+                    <div class="input-group col-xs-12">
+                      <input type="file" name="image" class="form-control file-upload-info"  placeholder="Upload Image">
+                    </div>
+                  </div>
+                 
+                  <div class="form-group">
+                    <label for="exampleTextarea1">Shortdescription</label>
+                    <textarea class="form-control" name="shortdescription" id="exampleTextarea1" rows="4"><%= project.shortdescription || '' %>
+                    </textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleTextarea1">Description</label>
+                    <textarea class="form-control" name="description" id="exampleTextarea1" rows="4"><%= project.description || '' %>
+                    </textarea>
+                  </div>
+                  <button type="submit" class="btn btn-gradient-primary me-2"><%= isEditing ? 'Update' : 'Add' %></button>
+                  <button class="btn btn-light">Cancel</button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <%} %>
+          <% if (projectdetails) { %>
+            <div class="row">
+            <div class="col-md-8 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Project Details</h4>
+                    
+                    <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th> Title</th>
+                            <th> Rating </th>
+                            <th> Client </th>
+                            <th> Website </th>
+                            <th> Completed </th>
+                            <th>Tag</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr class="table-info">
+                            <td> <%= project.title %></td>
+                            <td> <%= project.rating  %></td>
+                            <td> <%= project.client  %></td>
+                            <td> <%= project.website  %> </td>
+                            <td> <%= project.completed %></td>
+                            <td> <%= project.tag %></td>
+
+                          </tr>
+                          
+                        </tbody>
+                      </table>
+                      <table>
+                        <tbody>
+                            <tr>
+                              <th style="text-align: left;"> Short Description : </th>
+                              <td> <p style="text-align: justify;"><%= project.shortdescription %></td></p>
+                            </tr>
+                            <br />
+                            <tr>
+                              <th> Description :  </th>
+                              <td> <p style="text-align: justify;"><%= project.description %></td></p>
+                            </tr>
+  
+                        </tbody>
+                      </table>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h3 class="card-title">Image</h3>
+                    
+                    <img src="/images/<%= project.image %>" alt="service" class="img-thumbnail">
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+        <% } %>
+      </div>
+      
+      
+    </div>
+    <!-- content-wrapper ends -->
+<%- include('./partials/footer.ejs') %> 

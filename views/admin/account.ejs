@@ -1,0 +1,164 @@
+<%- include('./partials/header.ejs') %> <%- include('./partials/sidebar.ejs') %>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<div class="main-panel">
+  <div class="content-wrapper">
+    <div class="row">
+      <div class="col-6 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Manage Account</h4>
+            <p class="card-description">Set account setting</p>
+            <form
+              action="/myaccount"
+              method="post"
+              enctype="multipart/form-data"
+            >
+              <div class="form-group">
+                <label for="siteTitle">Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="name"
+                  id="siteTitle"
+                  value="<%= account ? account.name : '' %>"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="logo">Profile pic</label>
+                <div class="input-group col-xs-12">
+                  <input
+                    type="file"
+                    class="form-control"
+                    name="image"
+                    id="logo"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="description">Description</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="description"
+                  id="description"
+                  value="<%= account ? account.description : '' %>"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="description">Position</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="postion"
+                  id="postion"
+                  value="<%= account ? account.postion : '' %>"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="facebook">Facebook</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="facebook"
+                  id="facebook"
+                  value="<%= account && account.socialLinks ? account.socialLinks.facebook : '' %>"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="twitter">Twitter</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="twitter"
+                  id="twitter"
+                  value="<%= account && account.socialLinks ? account.socialLinks.twitter : '' %>"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="instagram">Instagram</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="instagram"
+                  id="instagram"
+                  value="<%= account && account.socialLinks ? account.socialLinks.instagram : '' %>"
+                />
+              </div>
+
+              <button class="btn btn-gradient-primary me-2" type="submit">
+                Save account
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <span class="profile-pic">
+              <% if (account && account.image) { %>
+                <img src="/images/<%= account.image %>" alt="service" class="img-thumbnail ">
+              <% } %>
+            </span>
+            <div class="container mt-5">
+                <h2>Account Information</h2>
+                <table class="table table-striped">
+                    <thead>
+                        <!-- <tr>
+                            <th scope="col">Column 1</th>
+                            <th scope="col">Column 2</th>
+                        </tr> -->
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Name</td>
+                            <td><%= account.name %></td>
+                        </tr>
+                        <tr>
+                            <td>Position</td>
+                            <td><%= account.postion %></td>
+                        </tr>
+                        <tr>
+                            <td>Facebook</td>
+                            <td><%= account.socialLinks.facebook %></td>
+                        </tr>
+                        <tr>
+                            <td>Instagram</td>
+                            <td><%= account.socialLinks.instagram %></td>
+                        </tr>
+                        <tr>
+                            <td>Twitter</td>
+                            <td><%= account.socialLinks.twitter %></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="description">
+                  <br>
+                <h3>Description</h3>
+                <%= account.description %>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- content-wrapper ends -->
+      <%- include('./partials/footer.ejs') %>
+    </div>
+  </div>
+</div>
+<style>
+  .description {
+    text-align: center;
+    font-size: large;
+    font-style: oblique;
+}
+</style>

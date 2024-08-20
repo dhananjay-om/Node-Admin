@@ -1,0 +1,56 @@
+<%- include('./partials/header.ejs') %> 
+<%- include('./partials/sidebar.ejs') %> 
+<div class="main-panel">
+    <div class="content-wrapper">
+      <div class="row">
+        <% if (savemode) { %>
+        <div class="col-12 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">Manage Service</h4>
+                <p class="card-description"> Add New Serice </p>
+                <form class="forms-sample" action="/service" enctype="multipart/form-data" method="post" >
+                  <% if (isEditing) { %>
+                    <input type="hidden" name="id" value="<%= service._id %>">
+                <% } %>
+                  <div class="form-group">
+                    <label for="exampleInputName1">Name</label>
+                    <input type="text" name="title" value="<%= service.title || '' %>" required class="form-control" id="exampleInputName1" placeholder="Name">
+                  </div>
+                  <div class="form-group">service
+                    <label>Image</label>
+                    <div class="input-group col-xs-12">
+                      <input type="file" name="image" class="form-control file-upload-info"  placeholder="Upload Image">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleTextarea1">Description</label>
+                    <textarea class="form-control" name="description" id="exampleTextarea1" rows="4">
+                      <%= service.description || '' %>
+                    </textarea>
+                  </div>
+                  <button type="submit" class="btn btn-gradient-primary me-2"><%= isEditing ? 'Update' : 'Add' %></button>
+                  <button class="btn btn-light">Cancel</button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <%} %>
+          <% if (servicedetails) { %>
+          <div class="col-12 grid-margin stretch-card">
+            <div class="image">
+              <img src="/images/<%= service.image %>" alt="service">
+              <br>
+              <br>
+              <label><b>Service Name: </b></label> <%= service.title %>
+              <br><br>
+              <label><b>Description: </b></label> <%= service.description %>
+            </div>
+          </div>
+        <% } %>
+      </div>
+      
+      
+    </div>
+    <!-- content-wrapper ends -->
+<%- include('./partials/footer.ejs') %> 

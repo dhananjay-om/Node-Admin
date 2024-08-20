@@ -1,0 +1,131 @@
+<%- include('./partials/header.ejs') %> 
+<%- include('./partials/sidebar.ejs') %> 
+<div class="main-panel">
+    <div class="content-wrapper">
+      <div class="row">
+        <% if (savemode) { %>
+        <div class="col-12 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">Manage blog</h4>
+                <p class="card-description"> Add New blog </p>
+                <form class="forms-sample" action="/manageblog" enctype="multipart/form-data" method="post" >
+                  <% if (isEditing) { %>
+                    <input type="hidden" name="id" value="<%= blog._id %>">
+                <% } %>
+                  <div class="form-group">
+                    <label for="exampleInputName1">Title</label>
+                    <input type="text" name="title" value="<%= blog.title || '' %>" required class="form-control" id="exampleInputName1" placeholder="Name">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputName1">Author</label>
+                    <input type="text" name="author" value="<%= blog.author || '' %>" required class="form-control" id="exampleInputName1" placeholder="Author">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputName1">tag</label>
+                    <input type="text" name="tag" value="<%= blog.tag || '' %>" required class="form-control" id="exampleInputName1" placeholder="Tag">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleSelectGender">Category</label>
+                    <select class="form-control" name="category" id="exampleSelectGender">
+                      <option>Select Category</option>
+                      <option>Technology</option>
+                      <option>Travel</option>
+                      <option>Fashion</option>
+                      <option>Photography</option>
+                      <option>Art</option>
+                      <option>Food</option>
+                      <option>Adventure</option>
+                      <option>Architecture</option>
+                      <option>Politics</option>
+                      <option>Social Life</option>
+                      <option>Food</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Image</label>
+                    <div class="input-group col-xs-12">
+                      <input type="file" name="image" class="form-control file-upload-info"  placeholder="Upload Image">
+                    </div>
+                  </div>
+                 
+                  <div class="form-group">
+                    <label for="exampleTextarea1">Shortdescription</label>
+                    <textarea class="form-control" name="shortdescription" id="exampleTextarea1" rows="4"><%= blog.shortdescription || '' %>
+                    </textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleTextarea1">Description</label>
+                    <textarea class="form-control" name="description" id="exampleTextarea1" rows="4"><%= blog.description || '' %>
+                    </textarea>
+                  </div>
+                  <button type="submit" class="btn btn-gradient-primary me-2"><%= isEditing ? 'Update' : 'Add' %></button>
+                  <button class="btn btn-light">Cancel</button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <%} %>
+          <% if (blogdetails) { %>
+            <div class="row">
+            <div class="col-md-8 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">blog Details</h4>
+                    
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th> Title</th>
+                                <th> Author </th>
+                                <th> Tag </th>
+                                <th> Category </th>
+                                <th> view </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="table-info">
+                                <td> <%= blog.title %></td>
+                                <td> <%= blog.author  %></td>
+                                <td> <%= blog.tag  %></td>
+                                <td> <%= blog.category  %> </td>
+                                <td> <%= blog.views %></td>
+                            </tr>
+                          
+                        </tbody>
+                      </table>
+                      <table>
+                        <tbody>
+                            <tr>
+                              <th style="text-align: left;"> Short Description : </th>
+                              <td> <p style="text-align: justify;"><%= blog.shortdescription %></td></p>
+                            </tr>
+                            <br />
+                            <tr>
+                              <th> Description :  </th>
+                              <td> <p style="text-align: justify;"><%= blog.description %></td></p>
+                            </tr>
+  
+                        </tbody>
+                      </table>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h3 class="card-title">Image</h3>
+                    
+                    <img src="/images/<%= blog.image %>" alt="service" class="img-thumbnail">
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+        <% } %>
+      </div>
+      
+      
+    </div>
+    <!-- content-wrapper ends -->
+<%- include('./partials/footer.ejs') %> 

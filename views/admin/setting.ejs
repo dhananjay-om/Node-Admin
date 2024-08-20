@@ -1,0 +1,198 @@
+<%- include('./partials/header.ejs') %> <%- include('./partials/sidebar.ejs') %>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<div class="main-panel">
+  <div class="content-wrapper">
+    <div class="row">
+      <div class="col-6 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Manage Site Setting</h4>
+            <p class="card-description">Upadate site setting</p>
+            <form
+              action="/site-setting"
+              method="post"
+              enctype="multipart/form-data"
+            >
+              <div class="form-group">
+                <label for="siteTitle">Title</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="title"
+                  id="siteTitle"
+                  value="<%= setting ? setting.title : '' %>"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="logo">Logo</label>
+                <div class="input-group col-xs-12">
+                  <input
+                    type="file"
+                    class="form-control"
+                    name="image"
+                    id="logo"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="description">Copyright</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="copyright"
+                  id="copyright"
+                  value="<%= setting ? setting.copyright : '' %>"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="description">address</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="address"
+                  id="address"
+                  value="<%= setting ? setting.address : '' %>"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="description">email</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="email"
+                  id="address"
+                  value="<%= setting ? setting.email : '' %>"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="description">phone</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="phone"
+                  id="phone"
+                  value="<%= setting ? setting.phone : '' %>"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="facebook">Facebook</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="facebook"
+                  id="facebook"
+                  value="<%= setting && setting.socialLinks ? setting.socialLinks.facebook : '' %>"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="twitter">Twitter</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="twitter"
+                  id="twitter"
+                  value="<%= setting && setting.socialLinks ? setting.socialLinks.twitter : '' %>"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="instagram">Instagram</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="instagram"
+                  id="instagram"
+                  value="<%= setting && setting.socialLinks ? setting.socialLinks.instagram : '' %>"
+                />
+              </div>
+
+              <button class="btn btn-gradient-primary me-2" type="submit">
+                Save setting
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <span class="profile-pic">
+              <% if (setting && setting.image) { %>
+                <img src="/images/<%= setting.image %>" alt="service" class="img-thumbnail ">
+              <% } %>
+            </span>
+            <div class="container mt-5">
+                <h2>setting Information</h2>
+                <table class="table table-striped">
+                    <thead>
+                        <!-- <tr>
+                            <th scope="col">Column 1</th>
+                            <th scope="col">Column 2</th>
+                        </tr> -->
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Title</td>
+                            <td><%= setting.title %></td>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td><%= setting.email %></td>
+                        </tr>
+                        <tr>
+                            <td>Phone</td>
+                            <td><%= setting.phone %></td>
+                        </tr>
+                        <tr>
+                            <td>Address</td>
+                            <td><%= setting.address %></td>
+                        </tr>
+                        
+                        <tr>
+                            <td>Email</td>
+                            <td><%= setting.email %></td>
+                        </tr>
+                        <tr>
+                            <td>Facebook</td>
+                            <td><%= setting.socialLinks.facebook %></td>
+                        </tr>
+                        <tr>
+                            <td>Instagram</td>
+                            <td><%= setting.socialLinks.instagram %></td>
+                        </tr>
+                        <tr>
+                            <td>Twitter</td>
+                            <td><%= setting.socialLinks.twitter %></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="description">
+                    <br>
+                  <h3>Copyright</h3>
+                   <%= setting.copyright %>
+                  </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- content-wrapper ends -->
+      <%- include('./partials/footer.ejs') %>
+    </div>
+  </div>
+</div>
+<style>
+  .description {
+    text-align: center;
+    font-size: large;
+    font-style: oblique;
+}
+</style>
